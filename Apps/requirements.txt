@@ -1,1 +1,7 @@
+langgraph
+langchain
+langchain-community
+openai
+langchain-openai
+langgraph-cli[inmem]
 panel
