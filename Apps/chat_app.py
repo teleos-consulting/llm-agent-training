@@ -1,8 +1,10 @@
-# pip install langchain langchain-openai langgraph openai langsmith panel 
+# Get the key
+from key import OPENAI_API_KEY
 
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 
+# Get the different "message types" that will be used for the human and AI to interact
 from langchain_core.messages import (
     HumanMessage,
     AIMessage,
@@ -10,16 +12,23 @@ from langchain_core.messages import (
     ToolMessage,
 )
 
+# Get some useful types for the graph
 from typing import Annotated
 from typing_extensions import TypedDict
 
+# Import the important parts to build the state transitions
 from langgraph.graph import StateGraph, START, END
+
+# Import the function to add messages to the state
 from langgraph.graph.message import add_messages
+
+# Import the tool needed to track the conversation over time
 from langgraph.checkpoint.memory import MemorySaver
+
+# Import some utility nodes to help add custom tools to the graph
 from langgraph.prebuilt import ToolNode, tools_condition
 
-model = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-
+# Define the state of the agent
 class State(TypedDict):
     # Messages have the type "list". The `add_messages` function
     # in the annotation defines how this state key should be updated
@@ -41,7 +50,7 @@ You may not need to use tools for every interaction, but they are there if you n
 numbers, do math, or maintain accurate state, you must use the tools to do these things.
 """
 
-# Define a tool to roll a dice
+# Define a toos to roll dice and basic arithmetic
 
 from random import randint
 
@@ -73,13 +82,11 @@ def exponentiate(a: float, b: float) -> float:
     print("Tool raised", a, "to the power of", b)
     return a ** b
 
-
-
 # Creat an array of tools that the bot can use
 toolbelt = [roll_dice, add, multiply, exponentiate]
 
 # Configure the LLM
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0).bind_tools(toolbelt)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=OPENAI_API_KEY).bind_tools(toolbelt)
 
 # Create a node-ready function that can accept state and take an action
 def chatbot(state: State):
@@ -123,8 +130,21 @@ def stream_graph_updates(user_input: str):
 # Invoke the graph with the system message to start the conversation
 graph.invoke({"messages": [SystemMessage(system_message)]}, config)            
 
+# create the .logs directory if it doesn't exist
+import os
+if not os.path.exists("./.logs"):
+    os.makedirs("./.logs")
+
 while True:
     user_input = input("You: ")
     if user_input.lower() in ["exit", "quit", "q", "stop", ":q", "/quit", "/exit", "/q"]:
+        # Store the conversation in a log file with a date & time stamp
+
+        messages = graph.invoke({"messages": [SystemMessage("Goodbye!")]}, config)["messages"]
+        with open("./.logs/chat_log.md", "a") as f:
+            for message in messages:
+                f.write(message.content + "\n")
+            f.write("\n")
         break
+
     stream_graph_updates(user_input)

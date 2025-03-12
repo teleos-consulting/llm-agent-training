@@ -17,3 +17,6 @@ panel serve app_name.py
 ```
 
 ...where `app_name.py` is the name of the Python script file.
+
+
+Math output uses LaTeX and can be rendered [here](https://www.quicklatex.com/).
