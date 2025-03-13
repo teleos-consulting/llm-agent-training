@@ -13,18 +13,33 @@ This will cover how to build agents from off-the-shelf large language models. We
 
 ### Easy mode (Windows, 15-20 min)
 
-Run this command from this project folder in your terminal.
+Run this command from this project folder in your terminal in this directory.
 
-```bash
-start.cmd
+```powershell
+.\start.cmd
 ```
 
-When tool installation is complete, run these commands...
+When tool installation is complete, open this folder/directory in Visual Studio Code. Look for the prompt asking you to open the directory in
+a dev container. Agree to to so.
+
+When the project is reopened, open your terminal with `` ctrl + ` ``
+
+From the dev container console, run `pip install -r requirements.txt`.
+
+### Easy mode (Mac, 15-20 min)
+
+Run this command from your terminal.
 
 ```bash
-.\.venv\Scripts\Activate
-pip install -r requirements.txt
+./start.sh
 ```
+
+When tool installation is complete, open this folder/directory in Visual Studio Code. Look for the prompt asking you to open the directory in
+a dev container. Agree to to so.
+
+When the project is reopened, open your terminal with `` command + ` ``
+
+From the dev container console, run `pip install -r requirements.txt`.
 
 Everything should be installed and ready for you to start playing with your first agents and large language models.
 

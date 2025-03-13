@@ -1,3 +1,5 @@
+winget install -e --id Git.Git
+winget install -e --id OpenJS.NodeJS
 winget install -e --id Microsoft.VisualStudio.2022.Community
 winget install -e --id Microsoft.VisualStudioCode
 winget install -e --id Python.Python.3.13

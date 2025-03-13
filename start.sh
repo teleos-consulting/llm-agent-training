@@ -42,6 +42,14 @@ if ! command -v brew &> /dev/null; then
     fi
 fi
 
+# Git
+echo "Installing Git..."
+brew install git
+
+# Node.js
+echo "Installing Node.js..."
+brew install node
+
 # Visual Studio Code
 echo "Installing Visual Studio Code..."
 brew install --cask visual-studio-code
