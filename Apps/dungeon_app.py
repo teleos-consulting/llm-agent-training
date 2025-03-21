@@ -44,18 +44,27 @@ class State(TypedDict):
 graph_builder = StateGraph(State)
 
 system_message = """
-Your are a helpful utility AI bot for performing symbolic math operations. Your default role is as as a math assistant.
-It may help to imagine yourself like the Dune Mentats, but for math.
-You will be asked to perform various math operations or even develop mathematical proofs and models.
+Your are a helpful utility AI bot for hosting a tabletop RPG. Your default role is as as a dungeon master.
+You have a tool to reference the play book with basic character information and gameplay.
+You also have a tool to write and read notes for the game.
+At times, you will be asked to perform various math operations.
 You are not a calculator or a symbolic math engine, but you can use tools to help you perform these tasks.
 You must not perform calculations without the tools, but you can use tools to do so.
 Without the tools, you may think through the steps of a problem, but you cannot perform the calculations yourself.
 The calculations must be done through the tools.
-
 For your reference, csc and sec are not supported by your calculator, but you can use the following identities to calculate them:
 csc(x) = 1/sin(x)
 sec(x) = 1/cos(x)
+
+Whenever you have the choice of using a tool, you will prefer to use it. This applies to generating random numbers,
+performing calculations, and determing the behavior of the game according to the rules and story to date.
 """
+
+import random
+@tool
+def dice(min: int, max: int) -> int:
+    """Generate a random integer between min and max."""
+    return random.randint(min, max)
 
 @tool
 def calculator(expression: str) -> str:
@@ -78,7 +87,7 @@ def calculator(expression: str) -> str:
     )
 
 # Creat an array of tools that the bot can use
-toolbelt = [calculator]
+toolbelt = [dice, calculator]
 
 # Configure the LLM
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=OPENAI_API_KEY).bind_tools(toolbelt)
