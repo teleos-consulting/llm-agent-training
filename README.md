@@ -2,7 +2,6 @@
 Author: Matthew DesEnfants (mdesenfants)
 -----
 
-
 # LLM Agent Tutorial
 
 This will cover how to build agents from off-the-shelf large language models. We'll be using OpenAI's LLMs, but these same techniques work with Anthropic's Claude, Meta's Llama, and Deepseek's models as well.
@@ -10,6 +9,10 @@ This will cover how to build agents from off-the-shelf large language models. We
 ## Installation Instructions
 
 > This will take 15-20 minutes.
+
+The project is intended to be used with Visual Studio Code, which offers versions for most operating systems. We'll also be using Dev Containers through Docker, ensuring that everything in here is running on a consistent development environment.
+
+You can run these on your own operating system directly, but using a Docker container will provide some guarantees of success.
 
 ### Easy mode (Windows, 15-20 min)
 
@@ -22,15 +25,12 @@ Run this command from this project folder in your terminal in this directory.
 When tool installation is complete, open this folder/directory in Visual Studio Code. Look for the prompt asking you to open the directory in
 a dev container. Agree to to so.
 
-When the project is reopened, open your terminal with `` ctrl + ` ``
-
-From the dev container console, run `pip install -r requirements.txt`.
-
 ### Easy mode (Mac, 15-20 min)
 
-Run this command from your terminal.
+Run these commands from your terminal...
 
 ```bash
+chmod +x start.sh
 ./start.sh
 ```
 
@@ -38,8 +38,6 @@ When tool installation is complete, open this folder/directory in Visual Studio 
 a dev container. Agree to to so.
 
 When the project is reopened, open your terminal with `` command + ` ``
-
-From the dev container console, run `pip install -r requirements.txt`.
 
 Everything should be installed and ready for you to start playing with your first agents and large language models.
 
