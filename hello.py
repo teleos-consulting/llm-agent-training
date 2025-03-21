@@ -11,3 +11,9 @@ c = a + b
 
 print(c)
 
+def exponent(a: float, b: float) -> float:
+    """
+    Raise a number to a power.
+    """
+    print(f" [TOOL] Raising {a} to the power of {b}")
+    return a ** b
