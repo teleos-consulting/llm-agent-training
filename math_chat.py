@@ -37,13 +37,16 @@ workflow = StateGraph(State)
 
 #### End First Tool #############################
 
+
 #### Section A #################################
 
 #### End Section A #############################
 
+
 #### Toolbelt #################################
 toolbelt = []
 #### Toolbelt #################################
+
 
 # Now back to setting up our LLM
 # Notice we're using OpenAI chat directly rather than the LangChain wrapper
@@ -55,9 +58,12 @@ def chatbot(state: State):
     return {"messages": [llm.invoke(state["messages"])]}
 
 
+
 #### Section B #################################
 
 #### End Section B #############################
+
+
 
 # Let's set up "state management" so LangGraph can keep track of the conversation
 # for us. Import the MemorySaver tool.
